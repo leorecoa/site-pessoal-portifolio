@@ -61,8 +61,11 @@ const TechStack: React.FC = () => {
               }}
               whileHover="hover"
             >
-              {tech.icon}
-            </motion.span>
+  {(() => {
+    const Icon = tech.icon;
+    return <Icon />;
+  })()}
+</motion.span>
             
             {/* Nome da tecnologia com transição para branco */}
             <span className="relative z-10 font-bold tracking-tight text-white/30 group-hover:text-white transition-colors duration-500">

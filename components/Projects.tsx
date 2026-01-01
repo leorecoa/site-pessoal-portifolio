@@ -89,7 +89,12 @@ const Projects: React.FC = () => {
               borderColor: 'rgba(99, 102, 241, 0.6)',
               boxShadow: '0 0 40px rgba(99, 102, 241, 0.3), inset 0 0 20px rgba(255, 255, 255, 0.05)'
             }}
-            whileTap={{ scale: 0.95 }}
+            whileTap={{ 
+              scale: 0.92,
+              borderColor: 'rgba(99, 102, 241, 1)',
+              backgroundColor: 'rgba(99, 102, 241, 0.15)',
+              transition: { duration: 0.1 }
+            }}
             className="group relative inline-flex items-center gap-6 px-12 py-6 bg-white/[0.03] border border-white/10 backdrop-blur-2xl text-white rounded-full font-bold transition-all duration-500 shadow-2xl overflow-visible"
           >
             <motion.div 

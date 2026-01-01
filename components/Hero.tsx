@@ -82,6 +82,9 @@ const Hero: React.FC = () => {
     btnY.set(0);
   };
 
+  const creativeText = "Arquiteto de ecossistemas digitais onde o intelecto humano orquestra a potência da inteligência artificial.";
+  const words = creativeText.split(" ");
+
   return (
     <section 
       id="hero" 
@@ -138,16 +141,35 @@ const Hero: React.FC = () => {
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-cyan-400 to-pink-500 filter drop-shadow-[0_0_20px_rgba(124,58,237,0.4)] uppercase">Jesse</span>
         </motion.h1>
 
-        <motion.p 
-          className="max-w-2xl mx-auto text-base md:text-xl text-white/40 mb-14 leading-relaxed font-light px-4"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.8, duration: 1 }}
-        >
-          Desenvolvedor Assistido por Inteligência Artificial. <br />
-          Onde o código encontra a automação para criar o amanhã.
-        </motion.p>
+        <div className="max-w-3xl mx-auto mb-14 px-4 overflow-hidden">
+          <motion.p 
+            className="flex flex-wrap justify-center gap-x-2 text-base md:text-xl text-white/50 leading-relaxed font-light"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={{
+              visible: {
+                transition: {
+                  staggerChildren: 0.05,
+                  delayChildren: 0.8
+                }
+              }
+            }}
+          >
+            {words.map((word, i) => (
+              <motion.span
+                key={i}
+                variants={{
+                  hidden: { opacity: 0, y: 10, filter: 'blur(4px)' },
+                  visible: { opacity: 1, y: 0, filter: 'blur(0px)' }
+                }}
+                className={word === "inteligência" || word === "artificial." || word === "humano" ? "text-white font-medium" : ""}
+              >
+                {word}
+              </motion.span>
+            ))}
+          </motion.p>
+        </div>
 
         <motion.div 
           className="flex flex-col md:flex-row items-center justify-center gap-6"
