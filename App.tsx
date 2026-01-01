@@ -7,6 +7,7 @@ import About from './components/About';
 import Process from './components/Process';
 import Projects from './components/Projects';
 import TechStack from './components/TechStack';
+import Experience from './components/Experience';
 import Contact from './components/Contact';
 import CustomCursor from './components/CustomCursor';
 
@@ -23,6 +24,7 @@ function App() {
         <Suspense fallback={<div className="h-screen w-full flex items-center justify-center text-white/20 uppercase tracking-widest text-xs font-display">Carregando experiência...</div>}>
           <Hero />
           <About />
+          <Experience />
           <Process />
           <Projects />
           <TechStack />

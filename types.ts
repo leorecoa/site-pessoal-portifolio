@@ -1,4 +1,3 @@
-// Fix: Added React import to provide the React namespace required by React.ReactNode
 import React from 'react';
 
 export interface Project {
@@ -12,7 +11,15 @@ export interface Project {
 
 export interface TechItem {
   name: string;
-  icon: string;
+  icon: React.ElementType;
+}
+
+export interface ExperienceItem {
+  year: string;
+  title: string;
+  company: string;
+  description: string;
+  icon: React.ElementType;
 }
 
 export interface ProcessStep {

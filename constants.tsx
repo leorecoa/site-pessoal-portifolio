@@ -1,16 +1,55 @@
-
 import React from 'react';
-import { Lightbulb, Cpu, Layout, Code, TrendingUp } from 'lucide-react';
-import { Project, TechItem, ProcessStep } from './types';
+import { 
+  Lightbulb, 
+  Cpu, 
+  Layout, 
+  Code, 
+  TrendingUp, 
+  Globe, 
+  Palette, 
+  FileCode, 
+  Github, 
+  Zap,
+  Briefcase,
+  GraduationCap
+} from 'lucide-react';
+import { Project, TechItem, ProcessStep, ExperienceItem } from './types';
 
-export const PROJECTS: Project[] = []; // Removendo projetos específicos conforme solicitado
+export const PROJECTS: Project[] = []; 
 
 export const TECH_STACK: TechItem[] = [
-  { name: 'HTML5', icon: '🌐' },
-  { name: 'CSS3', icon: '🎨' },
-  { name: 'JavaScript', icon: '📜' },
-  { name: 'Git & GitHub', icon: '🐙' },
-  { name: 'Inteligência Artificial', icon: '🧠' }
+  { name: 'React', icon: Code },
+  { name: 'TypeScript', icon: FileCode },
+  { name: 'Tailwind CSS', icon: Palette },
+  { name: 'Next.js', icon: Zap },
+  { name: 'IA Generativa', icon: Cpu },
+  { name: 'Git/GitHub', icon: Github },
+  { name: 'Web Design', icon: Layout },
+  { name: 'Performance', icon: Globe }
+];
+
+export const EXPERIENCE: ExperienceItem[] = [
+  {
+    year: '2024 - Presente',
+    title: 'Desenvolvedor Frontend & IA',
+    company: 'Freelance / Projetos Próprios',
+    description: 'Focado em integrar fluxos de trabalho de IA no desenvolvimento frontend, criando interfaces ultra-rápidas e centradas no usuário.',
+    icon: Briefcase
+  },
+  {
+    year: '2023 - 2024',
+    title: 'Especialista em Interface',
+    company: 'Lab de Inovação',
+    description: 'Exploração de novas fronteiras em UX, combinando motion design avançado com lógica de componentes modulares.',
+    icon: Palette
+  },
+  {
+    year: '2022',
+    title: 'Estudos em Sistemas',
+    company: 'Formação Acadêmica',
+    description: 'Início da jornada técnica com foco em lógica de programação e arquitetura de software moderna.',
+    icon: GraduationCap
+  }
 ];
 
 export const PROCESS_STEPS: ProcessStep[] = [
