@@ -3,69 +3,40 @@ import React from 'react';
 import { Lightbulb, Cpu, Layout, Code, TrendingUp } from 'lucide-react';
 import { Project, TechItem, ProcessStep } from './types';
 
-export const PROJECTS: Project[] = [
-  {
-    id: '1',
-    title: 'AI Dashboard Prototype',
-    description: 'A high-fidelity dashboard built with React and Tailwind, focused on real-time data visualization.',
-    image: 'https://picsum.photos/seed/dash/800/600',
-    tags: ['React', 'AI', 'Tailwind'],
-    github: 'https://github.dev/leorecoa'
-  },
-  {
-    id: '2',
-    title: 'Neural Creative Engine',
-    description: 'Experimental design tool that uses generative models to assist in UI layout discovery.',
-    image: 'https://picsum.photos/seed/neural/800/600',
-    tags: ['Next.js', 'PyTorch', 'Framer'],
-    github: 'https://github.dev/leorecoa'
-  },
-  {
-    id: '3',
-    title: 'Minimalist E-commerce',
-    description: 'Clean UX focused shopping experience with smooth micro-interactions.',
-    image: 'https://picsum.photos/seed/shop/800/600',
-    tags: ['UI/UX', 'JavaScript', 'Design'],
-    github: 'https://github.dev/leorecoa'
-  }
-];
+export const PROJECTS: Project[] = []; // Removendo projetos específicos conforme solicitado
 
 export const TECH_STACK: TechItem[] = [
   { name: 'HTML5', icon: '🌐' },
   { name: 'CSS3', icon: '🎨' },
-  { name: 'JavaScript', icon: '⚡' },
-  { name: 'React', icon: '⚛️' },
-  { name: 'Tailwind', icon: '🌊' },
-  { name: 'Node.js', icon: '🟢' },
-  { name: 'GitHub', icon: '🐙' },
-  { name: 'Gemini AI', icon: '✨' },
-  { name: 'Figma', icon: '📐' }
+  { name: 'JavaScript', icon: '📜' },
+  { name: 'Git & GitHub', icon: '🐙' },
+  { name: 'Inteligência Artificial', icon: '🧠' }
 ];
 
 export const PROCESS_STEPS: ProcessStep[] = [
   {
-    title: 'Ideia',
-    description: 'Conceptualization of problems and identifying opportunities for digital solutions.',
+    title: 'Descoberta',
+    description: 'Imersão no problema para encontrar a solução técnica e estética mais eficiente.',
     icon: <Lightbulb className="w-6 h-6" />
   },
   {
-    title: 'IA',
-    description: 'Using Generative AI to brainstorm, refactor code, and accelerate the creative loop.',
+    title: 'Arquitetura IA',
+    description: 'Utilização de LLMs para refinar a lógica de negócios e acelerar a escrita de código limpo.',
     icon: <Cpu className="w-6 h-6" />
   },
   {
-    title: 'Prototipação',
-    description: 'Quick iterations in Figma to define the visual language and user flow.',
+    title: 'Design-to-Code',
+    description: 'Tradução fiel de layouts para componentes modulares e acessíveis.',
     icon: <Layout className="w-6 h-6" />
   },
   {
-    title: 'Código',
-    description: 'Implementing high-performance, accessible, and clean React codebases.',
+    title: 'Refino Técnico',
+    description: 'Otimização de performance e garantia de uma experiência mobile impecável.',
     icon: <Code className="w-6 h-6" />
   },
   {
-    title: 'Evolução',
-    description: 'Constant learning, feedback cycles, and performance optimization.',
+    title: 'Entrega',
+    description: 'Monitoramento e evolução contínua da solução digital.',
     icon: <TrendingUp className="w-6 h-6" />
   }
 ];

@@ -1,6 +1,5 @@
 
 import React, { useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
 
 const AnimatedBackground: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -11,113 +10,115 @@ const AnimatedBackground: React.FC = () => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
+    let animationFrameId: number;
     let w: number, h: number;
-    let particles: Particle[] = [];
-    const mouse = { x: -100, y: -100 };
-
-    class Particle {
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
-      size: number;
-      color: string;
-
-      constructor() {
-        this.x = Math.random() * w;
-        this.y = Math.random() * h;
-        this.vx = (Math.random() - 0.5) * 0.3;
-        this.vy = (Math.random() - 0.5) * 0.3;
-        this.size = Math.random() * 1.5 + 0.5;
-        this.color = Math.random() > 0.5 ? 'rgba(124, 58, 237, 0.4)' : 'rgba(6, 182, 212, 0.4)';
+    
+    // Configurações das ondas orgânicas
+    const waves = [
+      {
+        y: 0.5,
+        length: 0.002,
+        amplitude: 80,
+        speed: 0.02,
+        phase: 0,
+        color: 'rgba(99, 102, 241, 0.15)', // Indigo-500
+        lineWidth: 2
+      },
+      {
+        y: 0.52,
+        length: 0.0015,
+        amplitude: 120,
+        speed: -0.015,
+        phase: 1,
+        color: 'rgba(34, 211, 238, 0.1)', // Cyan-400
+        lineWidth: 3
+      },
+      {
+        y: 0.48,
+        length: 0.003,
+        amplitude: 60,
+        speed: 0.03,
+        phase: 2,
+        color: 'rgba(168, 85, 247, 0.12)', // Purple-500
+        lineWidth: 1
+      },
+      {
+        y: 0.5,
+        length: 0.001,
+        amplitude: 150,
+        speed: 0.01,
+        phase: 3,
+        color: 'rgba(236, 72, 153, 0.08)', // Pink-500
+        lineWidth: 2
       }
-
-      draw() {
-        if (!ctx) return;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = this.color;
-        ctx.fill();
-      }
-
-      update() {
-        this.x += this.vx;
-        this.y += this.vy;
-
-        if (this.x < 0 || this.x > w) this.vx *= -1;
-        if (this.y < 0 || this.y > h) this.vy *= -1;
-
-        const dx = mouse.x - this.x;
-        const dy = mouse.y - this.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-
-        if (dist < 150) {
-          this.x -= dx / 100;
-          this.y -= dy / 100;
-        }
-      }
-    }
+    ];
 
     const init = () => {
       w = canvas.width = window.innerWidth;
       h = canvas.height = window.innerHeight;
-      particles = Array.from({ length: 100 }, () => new Particle());
+    };
+
+    const drawWave = (wave: typeof waves[0]) => {
+      if (!ctx) return;
+      ctx.beginPath();
+      ctx.moveTo(0, h * wave.y);
+
+      for (let x = 0; x < w; x++) {
+        // Cálculo de senoide composta para movimento orgânico
+        const wave1 = Math.sin(x * wave.length + wave.phase);
+        const wave2 = Math.sin(x * wave.length * 0.5 + wave.phase * 0.7);
+        const yOffset = (wave1 + wave2) * wave.amplitude;
+        
+        ctx.lineTo(x, h * wave.y + yOffset);
+      }
+
+      ctx.strokeStyle = wave.color;
+      ctx.lineWidth = wave.lineWidth;
+      ctx.lineCap = 'round';
+      ctx.stroke();
+      
+      // Atualiza a fase para o próximo frame
+      wave.phase += wave.speed;
     };
 
     const animate = () => {
+      // Limpa o canvas com um leve rastro para suavidade (opcional)
+      // Aqui usamos clear total para manter a nitidez das linhas
       ctx.clearRect(0, 0, w, h);
-      particles.forEach(p => {
-        p.update();
-        p.draw();
-      });
-      requestAnimationFrame(animate);
+      
+      // Desenha cada camada de onda
+      waves.forEach(drawWave);
+      
+      animationFrameId = requestAnimationFrame(animate);
     };
 
-    const handleResize = () => init();
-    const handleMouseMove = (e: MouseEvent) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
+    const handleResize = () => {
+      init();
     };
 
     window.addEventListener('resize', handleResize);
-    window.addEventListener('mousemove', handleMouseMove);
     init();
     animate();
 
     return () => {
       window.removeEventListener('resize', handleResize);
-      window.removeEventListener('mousemove', handleMouseMove);
+      cancelAnimationFrame(animationFrameId);
     };
   }, []);
 
   return (
-    <div className="fixed inset-0 z-[-1] overflow-hidden mesh-gradient">
-      <canvas ref={canvasRef} className="absolute inset-0 opacity-50" />
-      <div className="absolute top-0 left-0 w-full h-full opacity-30">
-        {[...Array(4)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute rounded-full blur-[120px]"
-            style={{
-              width: Math.random() * 400 + 300,
-              height: Math.random() * 400 + 300,
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              background: i % 2 === 0 ? 'rgba(124, 58, 237, 0.15)' : 'rgba(236, 72, 153, 0.15)',
-            }}
-            animate={{
-              x: [0, 50, -50, 0],
-              y: [0, -50, 50, 0],
-              scale: [1, 1.1, 0.9, 1],
-            }}
-            transition={{
-              duration: 20 + i * 5,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
-        ))}
-      </div>
+    <div className="fixed inset-0 z-[-1] overflow-hidden bg-[#050505]">
+      {/* Mesh gradient sutil de fundo para profundidade */}
+      <div className="absolute inset-0 mesh-gradient opacity-40" />
+      
+      {/* Canvas com as ondas fluidas */}
+      <canvas 
+        ref={canvasRef} 
+        className="absolute inset-0 w-full h-full pointer-events-none"
+      />
+      
+      {/* Overlay de vinheta para focar no conteúdo central */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(5,5,5,0.4)_100%)] pointer-events-none" />
     </div>
   );
 };

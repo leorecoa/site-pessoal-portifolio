@@ -1,94 +1,113 @@
 
-import React from 'react';
+import React, { useRef } from 'react';
 import Section from './Section';
-import { motion } from 'framer-motion';
-// Fix: Added ArrowRight to the imports from lucide-react
-import { Github, ExternalLink, ArrowRight } from 'lucide-react';
-import { PROJECTS } from '../constants';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { Github, ArrowRight } from 'lucide-react';
 
 const Projects: React.FC = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLAnchorElement>(null);
+
+  const btnX = useMotionValue(0);
+  const btnY = useMotionValue(0);
+  const springBtnX = useSpring(btnX, { damping: 20, stiffness: 100 });
+  const springBtnY = useSpring(btnY, { damping: 20, stiffness: 100 });
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (buttonRef.current) {
+      const btnRect = buttonRef.current.getBoundingClientRect();
+      const btnCenterX = btnRect.left + btnRect.width / 2;
+      const btnCenterY = btnRect.top + btnRect.height / 2;
+      const distanceX = e.clientX - btnCenterX;
+      const distanceY = e.clientY - btnCenterY;
+      const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+      
+      if (distance < 300) {
+        const power = (300 - distance) / 300;
+        btnX.set(distanceX * 0.3 * power);
+        btnY.set(distanceY * 0.3 * power);
+      } else {
+        btnX.set(0);
+        btnY.set(0);
+      }
+    }
+  };
+
+  const handleMouseLeave = () => {
+    btnX.set(0);
+    btnY.set(0);
+  };
+
   return (
     <Section id="projects">
-      <div className="flex flex-col md:flex-row md:items-end justify-between mb-24 gap-12">
-        <div className="max-w-2xl">
+      <div 
+        ref={containerRef}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        className="relative w-full py-20 px-8 md:px-20 rounded-[4rem] bg-white/[0.02] border border-white/5 overflow-hidden"
+      >
+        <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-indigo-500/10 to-transparent pointer-events-none" />
+        
+        <div className="relative z-10 max-w-3xl">
           <motion.span 
-            className="text-indigo-400 font-bold text-xs uppercase tracking-[0.4em] mb-4 block"
+            className="text-indigo-400 font-bold text-xs uppercase tracking-[0.4em] mb-6 block"
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            Portfolio
+            Portfolio & Lab
           </motion.span>
-          <h2 className="text-5xl md:text-7xl font-bold mb-6 tracking-tighter font-display">Projetos <br /><span className="text-white/20 italic">em destaque</span></h2>
-          <p className="text-white/40 text-lg leading-relaxed">Uma curadoria de soluções digitais onde a estética encontra a funcionalidade através de tecnologias modernas.</p>
-        </div>
-        <motion.a 
-          href="https://github.com/leorecoa" 
-          target="_blank"
-          className="group flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-white hover:text-indigo-400 transition-colors border-b border-white/10 pb-2"
-          whileHover={{ gap: '1rem' }}
-        >
-          GitHub completo &rarr;
-        </motion.a>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-        {PROJECTS.map((project, idx) => (
-          <motion.div
-            key={project.id}
-            className="group relative flex flex-col rounded-[2.5rem] border border-white/5 bg-white/[0.01] overflow-hidden backdrop-blur-3xl hover:border-white/20 transition-all duration-500"
-            initial={{ opacity: 0, y: 40 }}
+          
+          <motion.h2 
+            className="text-5xl md:text-8xl font-bold mb-8 tracking-tighter font-display leading-[0.9]"
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-5%" }}
-            transition={{ delay: idx * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true }}
           >
-            <div className="aspect-[16/10] overflow-hidden relative">
-              <img 
-                src={project.image} 
-                alt={project.title} 
-                className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 filter brightness-75 group-hover:brightness-100"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60" />
-              
-              <div className="absolute inset-0 flex items-center justify-center gap-6 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0">
-                <motion.a 
-                  href={project.github}
-                  target="_blank"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="p-4 bg-white text-black rounded-full shadow-2xl"
-                >
-                  <Github className="w-6 h-6" />
-                </motion.a>
-                <motion.a 
-                  href="#"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="p-4 bg-indigo-500 text-white rounded-full shadow-2xl"
-                >
-                  <ExternalLink className="w-6 h-6" />
-                </motion.a>
-              </div>
-            </div>
+            Explore meus <br />
+            <span className="text-white/20 italic">experimentos</span> <br />
+            no GitHub.
+          </motion.h2>
 
-            <div className="p-10 flex-1 flex flex-col">
-              <div className="flex flex-wrap gap-2 mb-6">
-                {project.tags.map(tag => (
-                  <span key={tag} className="text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full bg-white/5 text-white/50 border border-white/5 group-hover:border-indigo-500/30 transition-colors">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              <h3 className="text-2xl font-bold mb-3 tracking-tight group-hover:text-indigo-400 transition-colors font-display">{project.title}</h3>
-              <p className="text-sm text-white/30 leading-relaxed font-light group-hover:text-white/50 transition-colors">
-                {project.description}
-              </p>
-              <div className="mt-auto pt-8 flex items-center text-xs font-bold uppercase tracking-[0.2em] text-white/20 group-hover:text-indigo-400/60 transition-colors">
-                Ver detalhes <ArrowRight className="w-3 h-3 ml-2 group-hover:translate-x-2 transition-transform" />
-              </div>
-            </div>
-          </motion.div>
-        ))}
+          <motion.p 
+            className="text-white/40 text-xl mb-12 leading-relaxed font-light"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+          >
+            Meu trabalho é uma jornada contínua de descobertas através do código. Veja como aplico IA e tecnologias modernas para resolver problemas reais.
+          </motion.p>
+
+          <motion.a 
+            ref={buttonRef}
+            href="https://github.dev/leorecoa" 
+            target="_blank"
+            style={{ x: springBtnX, y: springBtnY }}
+            whileHover={{ 
+              scale: 1.1,
+              borderColor: 'rgba(99, 102, 241, 0.6)',
+              boxShadow: '0 0 40px rgba(99, 102, 241, 0.3), inset 0 0 20px rgba(255, 255, 255, 0.05)'
+            }}
+            whileTap={{ scale: 0.95 }}
+            className="group relative inline-flex items-center gap-6 px-12 py-6 bg-white/[0.03] border border-white/10 backdrop-blur-2xl text-white rounded-full font-bold transition-all duration-500 shadow-2xl overflow-visible"
+          >
+            <motion.div 
+              className="absolute inset-0 rounded-full bg-indigo-500/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity"
+            />
+            <Github className="w-6 h-6 text-indigo-400 group-hover:text-white group-hover:rotate-[360deg] transition-all duration-700" />
+            <span className="relative z-10 text-lg tracking-tight">Ver Repositórios no GitHub</span>
+            <ArrowRight className="relative z-10 w-5 h-5 group-hover:translate-x-2 transition-transform opacity-30 group-hover:opacity-100 group-hover:text-indigo-400" />
+            
+            <motion.div 
+              className="absolute -inset-1 border border-indigo-500/0 rounded-full group-hover:border-indigo-500/30 transition-colors"
+              animate={{ scale: [1, 1.05, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            />
+          </motion.a>
+        </div>
+
+        <div className="absolute -bottom-20 -right-20 w-96 h-96 bg-indigo-500/20 rounded-full blur-[100px] pointer-events-none" />
       </div>
     </Section>
   );
