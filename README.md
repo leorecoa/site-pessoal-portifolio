@@ -1,20 +1,47 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# 🧠 Site Pessoal – Portfólio
 
-# Run and deploy your AI Studio app
+Este é o repositório do meu portfólio pessoal, um site moderno e interativo feito com HTML, CSS, JavaScript e animações personalizadas.
 
-This contains everything you need to run your app locally.
+🌐 **Link para o site ao vivo:**  
+👉 https://leorecoa.vercel.app
 
-View your app in AI Studio: https://ai.studio/apps/drive/1qtUuesxaXPUsrsra1dcWb5a3vNV2hH10
+---
 
-## Run Locally
+## 🚀 Sobre o Projeto
 
-**Prerequisites:**  Node.js
+Este site foi criado para apresentar de forma visual e envolvente:
 
+✔️ Minha identidade profissional  
+✔️ Minhas habilidades técnicas  
+✔️ Meus conhecimentos e stack tecnológico  
+✔️ Interatividade com fundo animado e animações ao passar o mouse  
+✔️ Seções bem estruturadas:  
+- Início  
+- Sobre  
+- Projetos  
+- Tech Stack  
+- Contato
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+O objetivo é demonstrar **minha evolução como desenvolvedor assistido por IA** e a minha capacidade de criar experiências web modernas e responsivas.
+
+---
+
+## 🧰 Tecnologias Usadas
+
+As principais tecnologias utilizadas neste projeto incluem:
+
+- 🟡 **HTML5**  
+- 🎨 **CSS3 (com Tailwind CSS)**  
+- 💻 **JavaScript (para interatividade e animações)**  
+- ⚛️ **React + Framer Motion**  
+- 🖌️ **Canvas API para fundo animado**
+- 🧠 Conceitos de UX/UI modernos
+
+---
+
+## 🛠 Como Rodar Localmente
+
+1. Clone este repositório:
+
+```bash
+git clone https://github.com/leorecoa/site-pessoal-portifolio.git
