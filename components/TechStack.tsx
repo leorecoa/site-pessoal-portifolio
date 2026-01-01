@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Section from './Section';
 import { motion } from 'framer-motion';
@@ -50,8 +49,9 @@ const TechStack: React.FC = () => {
           >
             <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-            <div className="p-3 rounded-2xl bg-white/5 text-indigo-400 group-hover:bg-indigo-500 group-hover:text-white transition-all duration-500">
-              <tech.icon className="w-6 h-6" />
+            {/* Container do ícone com efeito de escala no hover */}
+            <div className="p-3 rounded-2xl bg-white/5 text-indigo-400 group-hover:bg-indigo-500 group-hover:text-white transition-all duration-500 group-hover:scale-110">
+              <tech.icon className="w-6 h-6 transition-transform duration-500 group-hover:rotate-12" />
             </div>
 
             <span className="relative z-10 font-bold text-lg tracking-tight text-white/40 group-hover:text-white transition-colors duration-500">
