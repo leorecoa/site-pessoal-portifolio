@@ -3,7 +3,7 @@
 Este é o repositório do meu portfólio pessoal, um site moderno e interativo feito com HTML, CSS, JavaScript e animações personalizadas.
 
 🌐 **Link para o site ao vivo:**  
-👉 https://leorecoa.vercel.app
+👉 https://site-pessoal-portifolio-brown.vercel.app/#hero
 
 ---
 
